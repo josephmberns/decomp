@@ -2,7 +2,7 @@ import csv
 import sys
 
 csv.field_size_limit(sys.maxsize)
-with open('train_dataset_small.csv') as csvfile:
+with open('train.csv') as csvfile:
     spamreader = csv.reader(csvfile, delimiter=",", quotechar='"')
     num_rows = 0
     num_hex_rays = 0

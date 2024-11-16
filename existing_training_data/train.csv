@@ -46,23 +46,17 @@ C,D
 /*
  * Spaces are meaningful: on some systems they can be visible.
  */
-static char DESCRIPTION[] =
-    "21 Game                                                          \n"
-    "                                                                 \n"
-    "21 is a two player game, the game is played by choosing a number \n"
-    "(1, 2, or 3) to be added to the running total. The game is won by\n"
-    "the player whose chosen number causes the running total to reach \n"
-    "exactly 21. The running total starts at zero.                    \n\n";
+static char DESCRIPTION[] = ""21 Game 21 is a two player game, the game is played by choosing a number (1, 2, or 3) to be added to the running total. The game is won by the player whose chosen number causes the running total to reach exactly 21. The running total starts at zero."";
 
 static int total;
 
 
 void update(char* player, int move)
 {
-    printf("%8s:  %d = %d + %d\n\n", player, total + move, total, move);
+    printf(""%8s:  %d = %d + %d\n\n"", player, total + move, total, move);
     total += move;
     if (total == GOAL)
-        printf(_("The winner is %s.\n\n"), player);
+        printf(_(""The winner is %s.\n\n""), player);
 }
 
 
@@ -80,10 +74,10 @@ int ai()
 #if GOAL < 32 && MIN_MOVE == 1 && MAX_MOVE == 3
     static const int precomputed[] = { 1, 1, 3, 2, 1, 1, 3, 2, 1, 1, 3, 2, 1, 1,
         3, 2, 1, 1, 3, 2, 1, 1, 3, 2, 1, 1, 3, 2, 1, 1, 3 };
-    update(_("ai"), precomputed[total]);
+    update(_(""ai""), precomputed[total]);
 #elif MIN_MOVE == 1 && MAX_MOVE == 3
     static const int precomputed[] = { 1, 1, 3, 2};
-    update(_("ai"), precomputed[total % (MAX_MOVE + 1)]);
+    update(_(""ai""), precomputed[total % (MAX_MOVE + 1)]);
 #else
     int i;
     int move = 1;
@@ -93,7 +87,7 @@ int ai()
     for (i = MIN_MOVE; i <= MAX_MOVE; i++)
         if (total + i == GOAL)
             move = i;
-    update(_("ai"), move);
+    update(_(""ai""), move);
 #endif
 }
 
@@ -103,14 +97,14 @@ void human(void)
     char buffer[BUFFER_SIZE];
     int move;
 
-    while ( printf(_("enter your move to play (or enter 0 to exit game): ")),
+    while ( printf(_(""enter your move to play (or enter 0 to exit game): "")),
             fgets(buffer, BUFFER_SIZE, stdin),
-            sscanf(buffer, "%d", &move) != 1 ||
+            sscanf(buffer, ""%d"", &move) != 1 ||
             (move && (move < MIN_MOVE || move > MAX_MOVE || total+move > GOAL)))
-        puts(_("\nYour answer is not a valid choice.\n"));
+        puts(_(""\nYour answer is not a valid choice.\n""));
     putchar('\n');
     if (!move) exit(EXIT_SUCCESS);
-    update(_("human"), move);
+    update(_(""human""), move);
 }
 
 
@@ -120,17 +114,17 @@ int main(int argc, char* argv[])
     puts(_(DESCRIPTION));
     while (true)
     {
-        puts(_("\n---- NEW GAME ----\n"));
-        puts(_("\nThe running total is currently zero.\n"));
+        puts(_(""\n---- NEW GAME ----\n""));
+        puts(_(""\nThe running total is currently zero.\n""));
         total = 0;
 
         if (rand() % NUMBER_OF_PLAYERS)
         {
-            puts(_("The first move is AI move.\n"));
+            puts(_(""The first move is AI move.\n""));
             ai();
         }
         else
-            puts(_("The first move is human move.\n"));
+            puts(_(""The first move is human move.\n""));
 
         while (total < GOAL)
         {
@@ -202,7 +196,7 @@ _DWORD ai_precomputed[31] =
   1,
   3
 }; // weak
-char DESCRIPTION[398] = "21 Game                                                          \n                                                                 \n21 is a two player game, the game is played by choosing a number \n(1, 2, or 3) to be added to the running total. The game is won by\nthe player whose chosen number causes the running total to reach \nexactly 21. The running total starts at zero.                    \n\n"; // weak
+char DESCRIPTION[398] = ""21 Game                                                          \n                                                                 \n21 is a two player game, the game is played by choosing a number \n(1, 2, or 3) to be added to the running total. The game is won by\nthe player whose chosen number causes the running total to reach \nexactly 21. The running total starts at zero.                    \n\n""; // weak
 int total; // weak
 // extern FILE *__stdinp;
 
@@ -212,10 +206,10 @@ __int64 __fastcall update(const char *a1, unsigned int a2)
 {
   __int64 result; // x0
 
-  result = printf("%8s:  %d = %d + %d\n\n", a1, total + a2, (unsigned int)total, a2);
+  result = printf(""%8s:  %d = %d + %d\n\n"", a1, total + a2, (unsigned int)total, a2);
   total += a2;
   if ( total == 21 )
-    return printf("The winner is %s.\n\n", a1);
+    return printf(""The winner is %s.\n\n"", a1);
   return result;
 }
 // 100008190: using guessed type int total;
@@ -225,7 +219,7 @@ __int64 ai()
 {
   unsigned int v1; // [xsp+Ch] [xbp-4h]
 
-  update("ai", ai_precomputed[total]);
+  update(""ai"", ai_precomputed[total]);
   return v1;
 }
 // 100003B3C: variable 'v1' is possibly undefined
@@ -243,10 +237,10 @@ __int64 human()
 
   while ( 1 )
   {
-    printf("enter your move to play (or enter 0 to exit game): ");
+    printf(""enter your move to play (or enter 0 to exit game): "");
     fgets(v5, 256, __stdinp);
     v3 = 1;
-    if ( sscanf(v5, "%d", &v4) == 1 )
+    if ( sscanf(v5, ""%d"", &v4) == 1 )
     {
       v2 = 0;
       if ( v4 )
@@ -264,12 +258,12 @@ __int64 human()
     }
     if ( (v3 & 1) == 0 )
       break;
-    puts("\nYour answer is not a valid choice.\n");
+    puts(""\nYour answer is not a valid choice.\n"");
   }
   putchar(10);
   if ( !v4 )
     exit(0);
-  return update("human", v4);
+  return update(""human"", v4);
 }
 // 100008190: using guessed type int total;
 
@@ -283,17 +277,17 @@ int __fastcall main(int argc, const char **argv, const char **envp)
   puts(DESCRIPTION);
   while ( 1 )
   {
-    puts("\n---- NEW GAME ----\n");
-    puts("\nThe running total is currently zero.\n");
+    puts(""\n---- NEW GAME ----\n"");
+    puts(""\nThe running total is currently zero.\n"");
     total = 0;
     if ( rand() % 2 )
     {
-      puts("The first move is AI move.\n");
+      puts(""The first move is AI move.\n"");
       ai();
     }
     else
     {
-      puts("The first move is human move.\n");
+      puts(""The first move is human move.\n"");
     }
     while ( total < 21 )
     {
