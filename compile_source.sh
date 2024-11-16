@@ -23,5 +23,7 @@ for source_file in "$SOURCE_DIR"/*.c; do
     echo "Compiled $source_file to $output_file"
   else
     echo "Error compiling $source_file"
+    echo "Deleting $source_file due to compilation error"
+    rm "$source_file"
   fi
 done
