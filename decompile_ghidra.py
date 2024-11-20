@@ -13,46 +13,49 @@ GHIDRA_APP_PROPERTIES = GHIDRA_INSTALL / 'Ghidra' / 'application.properties'
 def main():
     binary_dir = Path("binary")
     for in_file in binary_dir.iterdir():
-        with tempfile.TemporaryDirectory() as tempdir:
-            #conts = sys.stdin.buffer.read()
-            #infile = tempfile.NamedTemporaryFile(dir=tempdir, delete=False)
-            #infile.write(conts)
-            #infile.flush()
-            #inname = infile.name
-            #infile.close()
+        try:
+            with tempfile.TemporaryDirectory() as tempdir:
+                #conts = sys.stdin.buffer.read()
+                #infile = tempfile.NamedTemporaryFile(dir=tempdir, delete=False)
+                #infile.write(conts)
+                #infile.flush()
+                #inname = infile.name
+                #infile.close()
 
-            project_dir = tempfile.TemporaryDirectory(dir=tempdir)
-            output_dir = tempfile.TemporaryDirectory(dir=tempdir)
+                project_dir = tempfile.TemporaryDirectory(dir=tempdir)
+                output_dir = tempfile.TemporaryDirectory(dir=tempdir)
 
-            output_file = Path("decompiled") / in_file.stem
-            output_file = output_file.with_suffix(".c")
-            parent_dir = Path(__file__).resolve().parent
+                output_file = Path("decompiled_ghidra") / in_file.stem
+                output_file = output_file.with_suffix(".c")
+                parent_dir = Path(__file__).resolve().parent
 
-            decompile_command = [
-                f"{GHIDRA_HEADLESS}",
-                project_dir.name,
-                "temp",
-                "-import",
-                #inname,
-                str(in_file),
-                "-scriptPath",
-                f"{parent_dir}",
-                "-postScript",
-                f"{parent_dir}/DecompilerExplorer.java",
-                output_file
-            ]
+                decompile_command = [
+                    f"{GHIDRA_HEADLESS}",
+                    project_dir.name,
+                    "temp",
+                    "-import",
+                    #inname,
+                    str(in_file),
+                    "-scriptPath",
+                    f"{parent_dir}",
+                    "-postScript",
+                    f"{parent_dir}/DecompilerExplorer.java",
+                    output_file
+                ]
 
-            env = os.environ.copy()
-            env['PATH'] = f"{parent_dir}/jdk/bin:{env['PATH']}"
+                env = os.environ.copy()
+                env['PATH'] = f"{parent_dir}/jdk/bin:{env['PATH']}"
 
-            if not os.path.exists(output_file):
-                decomp = subprocess.run(decompile_command, capture_output=True, env=env)
-                if decomp.returncode != 0 or not os.path.exists(output_file):
-                    print(f'{decomp.stdout.decode()}\n{decomp.stderr.decode()}')
-                    sys.exit(1)
+                if not os.path.exists(output_file):
+                    decomp = subprocess.run(decompile_command, capture_output=True, env=env)
+                    if decomp.returncode != 0 or not os.path.exists(output_file):
+                        print(f'{decomp.stdout.decode()}\n{decomp.stderr.decode()}')
+                        sys.exit(1)
 
-            with open(output_file, 'r') as f:
-                print(f.read())
+                with open(output_file, 'r') as f:
+                    print(f.read())
+        except:
+            continue
 
 
 if __name__ == '__main__':
