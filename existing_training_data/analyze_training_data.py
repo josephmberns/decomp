@@ -11,8 +11,8 @@ stripped_patterns = [
 ]
 
 csv.field_size_limit(sys.maxsize)
-with open('train_dataset_HR.csv') as csvfile:
-    spamreader = csv.reader(csvfile, delimiter=",", quotechar='"')
+with open('decompiled_retdec.csv') as csvfile:
+    spamreader = csv.reader(csvfile, delimiter=",", quotechar='`')
     num_rows = 0
     num_hex_rays = 0
     striped_count = 0
@@ -23,8 +23,8 @@ with open('train_dataset_HR.csv') as csvfile:
             num_rows += 1
             if "Hex-Rays" in decompiled:
                 num_hex_rays += 1
-            else:
-                print(row)
+            # else:
+            #     print(row)
             # Count occurrences of each pattern
             results = {pattern: len(re.findall(pattern, decompiled)) for pattern in stripped_patterns}
 
@@ -52,6 +52,7 @@ print(f"Total With Prints: {print_count}")
 pct = print_count / num_rows
 print(f"Percentage of total: {pct}")
 
+# Training data
 # Total Rows: 95132
 # Total Hex Rays: 95132
 # Percentage of total: 1.0
@@ -59,3 +60,21 @@ print(f"Percentage of total: {pct}")
 # Percentage of total: 0.0
 # Total With Prints: 84895
 # Percentage of total: 0.8923916242694362
+
+# Decompiled Ghidra
+# Total Rows: 892
+# Total Hex Rays: 0
+# Percentage of total: 0.0
+# Total Striped: 0
+# Percentage of total: 0.0
+# Total With Prints: 821
+# Percentage of total: 0.9204035874439462
+
+# Decompiled Retdec
+# Total Rows: 889
+# Total Hex Rays: 0
+# Percentage of total: 0.0
+# Total Striped: 0
+# Percentage of total: 0.0
+# Total With Prints: 818
+# Percentage of total: 0.9201349831271091
