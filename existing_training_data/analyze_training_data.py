@@ -11,7 +11,7 @@ stripped_patterns = [
 ]
 
 csv.field_size_limit(sys.maxsize)
-with open('decompiled_retdec.csv') as csvfile:
+with open('sample_data/train.csv') as csvfile:
     spamreader = csv.reader(csvfile, delimiter=",", quotechar='`')
     num_rows = 0
     num_hex_rays = 0
