@@ -1,2 +1,6 @@
 train_dataset_HR.csv
 venv/
+id_rsa
+id_rsa.pub
+Key2.pem
+login
