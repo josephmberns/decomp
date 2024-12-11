@@ -1,0 +1,65 @@
+__int64 __fastcall sub_100003B88(_BYTE *a1)
+    {
+    char *v1; // x8
+    char *v2; // x9
+    int v4; // [xsp+Ch] [xbp-44h]
+    _BYTE *i; // [xsp+10h] [xbp-40h]
+    _BYTE *v6; // [xsp+20h] [xbp-30h]
+    char *v7; // [xsp+20h] [xbp-30h]
+    char *v8; // [xsp+28h] [xbp-28h]
+    int v9; // [xsp+30h] [xbp-20h]
+    unsigned int v10; // [xsp+34h] [xbp-1Ch]
+    _BYTE *v11; // [xsp+38h] [xbp-18h]
+    char v13; // [xsp+4Fh] [xbp-1h]
+        
+    if ( *a1 && a1[1] )
+        {
+        v11 = a1;
+        v10 = 0;
+        while ( *v11 )
+        {
+            v9 = (char)*v11++;
+            if ( v9 > 47 && (v9 <= 90 || v9 >= 97) && v9 <= 122 )
+            ++v10;
+        }
+        if ( v10 > 1 )
+        {
+            v8 = (char *)malloc((int)(v10 + 1));
+            v6 = v8;
+            v8[v10] = 0;
+        for ( i = a1; *i; ++i )
+        {
+            v4 = (char)*i;
+        if ( v4 >= 48 && (v4 <= 90 || v4 >= 97) && v4 <= 122 && (v4 <= 57 || v4 >= 65) )
+        {
+        if ( v4 >= 65 && v4 <= 90 )
+            *i += 32;
+            *v6++ = *i;
+        }
+        }
+            v7 = v6 - 1;
+        while ( v7 >= v8 )
+        {
+            v1 = v8++;
+            v2 = v7--;
+        if ( *v1 != *v2 )
+        {
+            v13 = 0;
+            return v13 & 1;
+        }
+        }
+            v13 = 1;
+        }
+        else
+        {
+            v13 = 1;
+        }
+        }
+        else
+        {
+            v13 = 1;
+        }
+        return v13 & 1;
+        }
+    
+}

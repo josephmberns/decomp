@@ -1,0 +1,43 @@
+bool isPalindrome(char* s) {
+
+    if (*s == '\0' || (*(s+1) == '\0')) return true;
+    
+    char *end = s;
+    int size = 0;
+    while(*(end) != '\0') { 
+        int tmp = (int)(*end);
+        ++end; 
+        if ((tmp < 65 && tmp < 48 && tmp < 57) || (tmp > 90 && tmp < 97) || tmp > 122) {continue;}
+        ++size; 
+    }
+
+    if (size == 0|| size == 1) {
+        return true;
+    }
+
+
+    char *newString = malloc(size+1);
+    char *c2 = newString;
+    newString[size] = '\0';
+
+    int i = 0;
+    for (char * c = s; *c != '\0'; ++c) {
+        int tmp = (int)(*c);
+        if ((tmp < 65 && tmp < 48 && tmp < 57) || (tmp > 90 && tmp < 97) || tmp > 122 || (tmp > 57 && tmp < 65)) {continue;}
+        if (tmp >= 65 && tmp <= 90) {
+            *c += 32;
+        }
+        *c2 = *c;
+        ++c2;
+    }
+
+    --c2;
+    while (c2 >= newString) {
+        if (*(newString++) != *(c2--)) {
+            return false;
+        }
+    }
+
+    return true;
+    
+}

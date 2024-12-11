@@ -1,0 +1,40 @@
+int is_valid(char *str) {
+    int len = strlen(str);
+    int count = 0;
+    char *p = str;
+    while (*p) {
+        char c = *p++;
+        if (c >= '0' && c <= '9') {
+            count++;
+        } else if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) {
+            count++;
+            }
+        }
+        if (count < 2) {
+            return 1;
+        }
+        char *q = malloc(sizeof(char) * (count + 1));
+        char *r = q;
+        q[count] = '\0';
+        p = str;
+        while (*p) {
+            char c = *p++;
+            if ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) {
+                if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) {
+                    c = tolower(c);
+                }
+                    *r++ = c;
+                }
+            }
+        char *s = r - 1;
+        while (s >= q) {
+            char *t = q++;
+            char *u = s--;
+            if (*t != *u) {
+                return 0;
+            }
+        }
+        return 1;
+    }
+    
+}
